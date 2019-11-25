@@ -1,4 +1,4 @@
-subroutine call_kinsol
+subroutine call_kinsol(x_in)
       use mkinsol 
       use mfkfun
       implicit none
@@ -9,8 +9,8 @@ subroutine call_kinsol
       double precision fnormtol, scsteptol 
       double precision rout(2)
       real*8, allocatable :: xg(:), scale(:), constr(:)
-
       integer h
+      real*8 x_in(ntot*2)
 
       !ntot = 10
       !neq = ntot
@@ -40,7 +40,7 @@ subroutine call_kinsol
 !Defino un initial guess tipo bulk
 
       do i = 1, neq  ! 
-         xg(i) = 1.0 ! volumefraction 
+         xg(i) = x_in(i) ! read from main.f90 
          scale(i) = 1.0d0 ! le da mas o menos importancia a cada variable a la hora de calcular el residual
          constr(i) = 2.0d0 ! restricciones para x, puede tomar 5 valores, que indican positivo, negativo, positivo esctricto, negativo estricto, o cualquier cosa (0)
       enddo
