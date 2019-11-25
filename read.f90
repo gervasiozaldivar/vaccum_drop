@@ -18,6 +18,12 @@ read(8,*), nada
 read(8,*), vpol
 
 read(8,*), nada
+read(8,*), st
+
+read(8,*), nada
+read(8,*), lseg
+
+read(8,*), nada
 read(8,*), flagkai 
 
 read(8,*), nada

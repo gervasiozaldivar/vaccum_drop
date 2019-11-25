@@ -5,7 +5,7 @@ use mkinsol
 
 implicit none
 
-allocate (pi (ntot), volumefraction(ntot))
+allocate (osmoticpressure (ntot), volumefraction(ntot))
 allocate (Xu(ntot,ntot))
 allocate (pp(neq))
 

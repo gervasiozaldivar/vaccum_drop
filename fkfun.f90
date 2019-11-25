@@ -7,7 +7,7 @@ implicit none
 integer*8 j,i !indices
 integer ier
 real*8 f(ntot*2), x(ntot*2)      ! x(1:ntot)=volumefraction(i) / x(ntot+1,ntot*2)=pi(i) 
-real*8 suminteractions, sumpol, packing
+real*8 suminteractions, sumpol, packing, exponente
 real*8 pi_kinsol(ntot),volumefraction_kinsol (ntot)
 
 pi_kinsol(1:ntot) = x(ntot+1:2*ntot) ! pi is read from kinsol x
@@ -33,7 +33,7 @@ suminteractions=0.0
 
   sumpol = sumpol + volumefraction(i)
   
-  pi(i) = -exponente/vpol 
+  osmoticpressure(i) = -exponente/vpol 
 
 enddo
 
@@ -43,18 +43,14 @@ do i=1,ntot
   f(i) = volumefraction(i)-volumefraction_kinsol(i)
   packing = 1.0 - volumefraction(i)
   if (packing.lt.0.0) then
-    f(ntot+i)=pi(i)
+    f(ntot+i)=osmoticpressure(i)
     else
       f(ntot+i)=packing
   endif 
 enddo
 
-f(ntot + i) = f(ntot + i) + (Psi(i+1)-2*Psi(i)+Psi(i-1))*delta**(-2)
-f(ntot + i) = f(ntot + i)/2.0 !por qué esto?
+f(ntot + 1:ntot*2) = f(ntot + 1:ntot*2)/2.0 !por qué esto?
 
-enddo
-
-print*, 'fkfun deja de iterar'
 
 ier = 0 !si ier ne 0 el kinsol tira error.
 
