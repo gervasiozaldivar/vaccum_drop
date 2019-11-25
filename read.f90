@@ -12,16 +12,16 @@ read(8,*), nada
 read(8,*), delta
 
 read(8,*), nada
-read(8,*), Cbulk(2:3)
+read(8,*), Npol
 
 read(8,*), nada
-read(8,*), vol
+read(8,*), vpol
 
 read(8,*), nada
-read(8,*), z
+read(8,*), flagkai 
 
 read(8,*), nada
-read(8,*), sigma
+read(8,*), Xulimit 
 
 end
 

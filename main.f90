@@ -8,7 +8,7 @@ integer i, j
 
 call readinput
 
-neq = ntot 
+neq = ntot*2 
 
 call allocation
 
