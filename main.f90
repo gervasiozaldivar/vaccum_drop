@@ -9,8 +9,14 @@ real*8 z
 call readinput
 
 neq = ntot*2 
+iter=0
+
 
 call allocation
+
+
+print*,"kai calculation"
+call kai
 
 call call_kinsol
 
