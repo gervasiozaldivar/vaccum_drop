@@ -42,7 +42,7 @@ subroutine call_kinsol(x_in)
       do i = 1, neq  ! 
          xg(i) = x_in(i) ! read from main.f90 
          scale(i) = 1.0d0 ! le da mas o menos importancia a cada variable a la hora de calcular el residual
-         constr(i) = 2.0d0 ! restricciones para x, puede tomar 5 valores, que indican positivo, negativo, positivo esctricto, negativo estricto, o cualquier cosa (0)
+         constr(i) = 1.0d0 ! restricciones para x, puede tomar 5 valores, que indican positivo, negativo, positivo esctricto, negativo estricto, o cualquier cosa (0)
       enddo
 
  

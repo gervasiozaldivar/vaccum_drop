@@ -35,8 +35,8 @@ endif
 call call_kinsol(x_init)
 
 do i = 1, ntot
- z=i*delta
- write(101,*)z, volumefraction(i)
+ z=(i-0.5)*delta
+ write(1000,*)z, volumefraction(i)
 enddo
 
 close(101)

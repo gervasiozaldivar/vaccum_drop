@@ -29,17 +29,16 @@ suminteractions=0.0
     suminteractions = suminteractions + Xu(i,j)*st*volumefraction_kinsol(j) 
   enddo
 
-  exponente = -pi_kinsol(i)*vpol-suminteractions
+  exponente = -pi_kinsol(i)*vpol + suminteractions
 
   volumefraction(i) =  exp(exponente)
 
-  sumpol = sumpol + volumefraction(i)*delta
+  sumpol = sumpol + volumefraction(i)*delta ! 
   
-  osmoticpressure(i) = -exponente/vpol 
 
 enddo
 
-volumefraction = volumefraction * Npol / sumpol
+volumefraction = volumefraction * Npol * vpol / sumpol   
 
 do i=1,ntot
   write(200+iter,*)i,volumefraction(i)
@@ -48,15 +47,13 @@ enddo
 
 do i=1,ntot
   f(i) = volumefraction(i)-volumefraction_kinsol(i)
-  packing = 1.0 - volumefraction(i)
+  packing = volumefraction(i)-1.0
   if (packing.lt.0.0) then
-    f(ntot+i)=osmoticpressure(i)
+    f(ntot+i) = pi_kinsol(i)
     else
-      f(ntot+i)=packing
+      f(ntot+i) = packing
   endif 
 enddo
-
-f(ntot + 1:ntot*2) = f(ntot + 1:ntot*2)/2.0 !por qué esto?
 
 
 ier = 0 !si ier ne 0 el kinsol tira error.
