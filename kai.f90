@@ -68,12 +68,12 @@ do ii = 1, ntot ! loop sobre cada posicion del segmento
          y2 = ymin + (ymax-ymin)*dfloat(iy-1)/dfloat(MCsteps-1)
          z2 = zmin + (zmax-zmin)*dfloat(iz-1)/dfloat(MCsteps-1)
 
-         R = abs(x2)
+         R = x2
 
          vect = sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2) ! vector diferencia
          j = int(R/delta)+1 ! j tiene la celda donde cae el punto a integrar
 
-         if(j.le.ntot) then
+         if((j.le.ntot).and.(j.ge.1)) then
 
 
          if(vect.le.(cutoff)) then ! esta dentro de la esfera del cut-off   
