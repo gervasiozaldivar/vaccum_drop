@@ -26,7 +26,6 @@ integer iR, ix,iy,iz, itheta
 integer j
 real*8 radio
 real*8 cutoff
-real*8 sumaXu
 
 
 
@@ -39,7 +38,6 @@ Xu = 0.0 ! vector Xu
 
 seed = 1010
 MCsteps = 60*Xulimit
-sumaXu=0.0
 
 if (flagkai.eq.1) then
 
@@ -53,7 +51,7 @@ do ii = 1, ntot ! loop sobre cada posicion del segmento
 
       xmax = cutoff + (dfloat(ii) - 0.5)*delta
       xmin = -cutoff + (dfloat(ii) - 0.5)*delta
-      
+
       do ix = 1, MCsteps
       do iy = 1, MCsteps
       do iz = 1, MCsteps
@@ -73,7 +71,7 @@ do ii = 1, ntot ! loop sobre cada posicion del segmento
          vect = sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2) ! vector diferencia
          j = int(R/delta)+1 ! j tiene la celda donde cae el punto a integrar
 
-         if((j.le.ntot).and.(j.ge.1)) then
+         if((j.le.ntot).and.(j.ge.1).and.(R.gt.0.0)) then
 
 
          if(vect.le.(cutoff)) then ! esta dentro de la esfera del cut-off   
@@ -96,7 +94,6 @@ end do ! ii
 endif
 
 
-open(unit=200,file='suma.dat')
 open(unit=110, file='kais.dat')
 
 
@@ -104,20 +101,20 @@ open(unit=110, file='kais.dat')
   do j=1,ntot
 
      if (flagkai.eq.1) then
-     write(110,*)ii,j,Xu(ii,j) ! residual size of iteration vector
+       write(110,*)ii,j,Xu(ii,j) ! residual size of iteration vector
      endif
 
      if (flagkai.eq.0) then
      read(110,*)a,b,Xu(ii,j)
 
       if (a.ne.ii) then
-      print*,'a non equal ii'
-      stop
+        print*,'a non equal ii'
+        stop
       endif
  
       if (b.ne.j) then
-      print*,'b non equal j'
-      stop
+        print*,'b non equal j'
+        stop
       endif
 
      endif
@@ -125,15 +122,7 @@ open(unit=110, file='kais.dat')
   enddo
   enddo
 
-do i = 20-Xulimit, 20+Xulimit
-  sumaXu = sumaXu + Xu(20,i)
-enddo
-
-write(200,*)is,js,sumaXu
-
 close(110)
 
-
-close(200)
 end
 

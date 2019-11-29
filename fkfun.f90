@@ -41,11 +41,6 @@ enddo
 volumefraction = volumefraction * Npol * vpol / sumpol   
 
 do i=1,ntot
-  write(200+iter,*)i,volumefraction(i)
-enddo
-
-
-do i=1,ntot
   f(i) = volumefraction(i)-volumefraction_kinsol(i)
   packing = volumefraction(i)-1.0
   if (packing.lt.0.0) then
