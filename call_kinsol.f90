@@ -10,7 +10,7 @@ subroutine call_kinsol(x_in)
       double precision rout(2)
       real*8, allocatable :: xg(:), scale(:), constr(:)
       integer h
-      real*8 x_in(ntot*2)
+      real*8 x_in(ntot)
 
       !ntot = 10
       !neq = ntot
@@ -21,8 +21,8 @@ subroutine call_kinsol(x_in)
       !allocate (pp(neq))
 
       globalstrat = 0 !el kinsol tiene varias capas de aproximación, esta es la primera capa. 0/1 indica tipo de solver.
-      fnormtol = 1.0d-8 !tolerancia de la norma de f (debe ser cero)
-      scsteptol = 1.0d-8 !tolerancia del cambio de f entre iteración e iteración
+      fnormtol = 1.0d-4 !tolerancia de la norma de f (debe ser cero)
+      scsteptol = 1.0d-4 !tolerancia del cambio de f entre iteración e iteración
       maxl = 2000 !Krislov
       maxlrst = 50 !?
       msbpre  = 10 !?
@@ -42,7 +42,7 @@ subroutine call_kinsol(x_in)
       do i = 1, neq  ! 
          xg(i) = x_in(i) ! read from main.f90 
          scale(i) = 1.0d0 ! le da mas o menos importancia a cada variable a la hora de calcular el residual
-         constr(i) = 1.0d0 ! restricciones para x, puede tomar 5 valores, que indican positivo, negativo, positivo esctricto, negativo estricto, o cualquier cosa (0)
+         constr(i) = 2.0d0 ! restricciones para x, puede tomar 5 valores, que indican positivo, negativo, positivo esctricto, negativo estricto, o cualquier cosa (0)
       enddo
 
  

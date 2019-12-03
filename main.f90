@@ -18,11 +18,12 @@ call allocation
 
 
 print*,"kai calculation"
+
 call kai
 
 allocate (x_init(ntot))
 
-x_init = 1.0 ! homogeneous initial guess
+x_init = 0.1 ! homogeneous initial guess
 
 if (infile.eq.1) then
   do i=1,ntot
@@ -34,8 +35,9 @@ endif
 call call_kinsol(x_init)
 
 do i = 1, ntot
- z=(i-0.5)*delta
- write(1000,*)z, volumefraction(i)
+  z=(i-0.5)*delta
+  write(1000,*)z, volumefraction(i)
+  write(2000,*)z, mupol(i)
 enddo
 
 close(101)
