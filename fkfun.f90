@@ -39,6 +39,7 @@ do i=1,ntot
 
   volumefraction(i) =  exp(suminteractions(i)-repulsions(i)-st_pared(i))
 
+
   sumpol = sumpol + volumefraction(i)*delta ! 
 
 enddo
@@ -46,8 +47,8 @@ enddo
 volumefraction = volumefraction * Npol * vpol / sumpol   
 
 do i=1,ntot
-  mupol(i)=log(volumefraction(i))+repulsions(i)-suminteractions(i)
   f(i) = volumefraction(i)-volumefraction_kinsol(i)
+  mupol(i)=-log(volumefraction(i))-repulsions(i)+suminteractions(i)
 enddo
 
 

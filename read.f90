@@ -12,7 +12,7 @@ read(8,*), nada
 read(8,*), delta
 
 read(8,*), nada
-read(8,*), Npol
+read(8,*), Npol_min, Npol_max, Npol_step
 
 read(8,*), nada
 read(8,*), vpol
