@@ -10,6 +10,7 @@ real*8, allocatable :: x_init(:)
 character*22, densityfilename
 character*13, mupolfilename
 character*14, sysfilename
+
 call readinput
 
 neq = ntot 
@@ -36,6 +37,8 @@ endif
 Npol=Npol_min
 counter=0
 counter_max = int( (Npol_max - Npol_min)/Npol_step )
+
+open(unit=4000,file='mupolvsnpol.dat')
 
 do while (counter.le.counter_max)
 
@@ -68,14 +71,16 @@ do while (counter.le.counter_max)
   write(3000,*)"vpol= ", vpol
   write(3000,*)"delta= ", delta
   write(3000,*)"lseg= ", lseg
-
+ 
   close(1000)
   close(2000)
   close(3000)
+  
+  write(4000,*)Npol,mupol(1)
 
   Npol=Npol+Npol_step
 enddo
 
 close(101)
-
+close(4000)
 end

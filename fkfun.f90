@@ -24,10 +24,12 @@ sumpol=0.0
 st_pared=0.0
 !st_pared(1)=-5.0
 
-do i=1,ntot
 
   suminteractions = 0.0
   repulsions = 0.0
+
+do i=1,ntot
+
   denominador = 0.0
 
     do j=1,ntot
@@ -38,8 +40,8 @@ do i=1,ntot
   repulsions(i)=(8.0*volumefraction_kinsol(i)-9.0*volumefraction_kinsol(i)**2+3.0*volumefraction_kinsol(i)**3) / denominador**3 
 
   volumefraction(i) =  exp(suminteractions(i)-repulsions(i)-st_pared(i))
-
-
+  
+  
   sumpol = sumpol + volumefraction(i)*delta ! 
 
 enddo
@@ -48,7 +50,7 @@ volumefraction = volumefraction * Npol * vpol / sumpol
 
 do i=1,ntot
   f(i) = volumefraction(i)-volumefraction_kinsol(i)
-  mupol(i)=-log(volumefraction(i))-repulsions(i)+suminteractions(i)
+  mupol(i) = log(volumefraction(i)) + repulsions(i) - suminteractions(i) - st_pared(i)
 enddo
 
 
