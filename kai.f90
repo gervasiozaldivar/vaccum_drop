@@ -94,7 +94,7 @@ end do ! ii
 endif
 
 
-open(unit=110, file='kais.dat')
+open(unit=110, file='kais.in')
 
 
   do ii=1,ntot
