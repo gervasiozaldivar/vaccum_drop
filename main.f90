@@ -6,7 +6,7 @@ use mkinsol
 implicit none
 integer i, j, counter,counter_max
 real*8 z, ztrash
-real*8, allocatable :: x_init(:)
+real*8, allocatable :: x_init(:), bla(:)
 character*22, densityfilename
 character*13, mupolfilename
 character*14, sysfilename
@@ -23,13 +23,14 @@ print*,"kai calculation"
 
 call kai
 
-allocate (x_init(ntot))
+allocate (x_init(ntot),bla(ntot))
 
 x_init = 0.1 ! homogeneous initial guess
 
 if (infile.eq.1) then
   do i=1,ntot
-    read(101,*), ztrash, x_init(i)
+    read(101,*), ztrash, bla(i)
+    x_init(i)=-log(bla(i))
   enddo
   infile = 2
 endif
